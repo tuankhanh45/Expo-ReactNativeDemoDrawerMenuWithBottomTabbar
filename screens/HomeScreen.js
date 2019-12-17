@@ -34,61 +34,79 @@ export default class HomeScreen extends React.Component {
 
   state = {
     index: 0,
-    routes: [
-    ]
+    routes: []
   }
   componentWillMount() {
+    let root = [];
+    for (i = 0; i < 11; i++) root.push(
+      { key: `tab${i}`, title: `Tab ${i}`, data: i, index: i }
+    )
+
     this.setState({
-      routes: [
-        { key: 'tab1', title: 'Tab1', data: 1 },
-        { key: 'tab2', title: 'Tab2', data: 2 },
-        { key: 'tab3', title: 'Tab3', data: 3 },
-        { key: 'tab4', title: 'Tab4', data: 4 },
-        { key: 'tab5', title: 'Tab5', data: 5 },
-        { key: 'tab6', title: 'Tab6', data: 6 },
-      ]
+      routes: root,
+      index: parseInt(root.length / 2)
     })
   }
 
-  componentDidMount() {
-    this.interval = setInterval(() => {
-      this.loadData()
-    }, 5000);
-  }
+  // componentDidMount() {
+  //   this.interval = setInterval(() => {
+  //     this.loadData()
+  //   }, 5000);
+  // }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
   loadData() {
-      this.setState({
-        index: this.state.index + 1,
-        routes: [
-          { key: 'tab1', title: 'Tab1', data: 8 },
-          { key: 'tab2', title: 'Tab2', data: 9 },
-          { key: 'tab3', title: 'Tab3', data: 13 },
-          { key: 'tab4', title: 'Tab4', data: 14 },
-          { key: 'tab5', title: 'Tab5', data: 15 },
-          { key: 'tab6', title: 'Tab6', data: 16 },
-        ]
-      })
+    let root = [];
+    for (i = 0; i < 11; i++) root.push(
+      { key: `tab${i}`, title: `Tab ${i}`, data: i + 10, index: i }
+    )
+    this.setState({
+      index: this.state.index > 10 ? 0 : this.state.index + 1,
+      routes: root
+    })
   }
 
 
   _handleIndexChange = index => this.setState({ index });
 
+  _renderLabel(props) {
+    {
+      return ({ route }) => {
+        const focused = route.index === props.navigationState.index;
+        return (
+          <View>
+            <Text
+              style={{
+                textAlign: "center",
+                color: focused ? "red" : "#000"
+              }}>
+              {route.title}</Text>
+          </View>
+        )
+      }
+
+    }
+
+  }
   _renderTabBar = props =>
     <TabBar {...props}
       scrollEnabled
-      indicatorStyle={{ backgroundColor: '#fff' }}
+      indicatorStyle={{ backgroundColor: 'red' }}
       style={styles.header}
       tabStyle={styles.tabBarTab}
-      labelStyle={style = {
-        fontSize: 14,
-        textAlign: "center",
-      }
+      // labelStyle={
+      //   style = {
+      //     fontSize: 14,
+      //     textAlign: "center",
+      //     color: '#000'
+      //   }
 
-      }
+      // }
+
+      renderLabel={this._renderLabel(props)}
     />;
 
   _renderScene = (route) => {
@@ -98,12 +116,15 @@ export default class HomeScreen extends React.Component {
   }
   render() {
     return (
-      <TabView
+      < TabView
         navigationState={this.state}
         renderScene={this._renderScene}
         renderTabBar={this._renderTabBar}
         onIndexChange={this._handleIndexChange}
-
+        render
+        lazy={true}
+        scrollEnabled={true}
+        bounces={true}
       />
     );
 
@@ -113,7 +134,7 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   scene: {
-    flex: 1
+    flex: 1,
 
   },
   header: {
@@ -127,7 +148,6 @@ const styles = StyleSheet.create({
   },
   tabBarTab: {
     height: 50,
-    width: screenWidth / 5,
-
+    width: screenWidth / 5
   },
 });
