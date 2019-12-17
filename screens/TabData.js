@@ -16,6 +16,11 @@ export default class TabData extends React.Component {
         }
     }
 
+    // change data after state parent change
+    componentWillReceiveProps(nextProps) {
+        this.setState({ data: nextProps.data })
+    }
+
     render() {
         return (
             <View><Text> data: {this.state.data}  </Text></View>

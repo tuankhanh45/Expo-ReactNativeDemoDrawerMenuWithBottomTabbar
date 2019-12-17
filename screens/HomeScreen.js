@@ -35,14 +35,44 @@ export default class HomeScreen extends React.Component {
   state = {
     index: 1,
     routes: [
-      { key: 'tab1', title: 'Tab1', data: 1 },
-      { key: 'tab2', title: 'Tab2', data: 2 },
-      { key: 'tab3', title: 'Tab3', data: 3 },
-      { key: 'tab4', title: 'Tab4', data: 4 },
-      { key: 'tab5', title: 'Tab5', data: 5 },
-      { key: 'tab6', title: 'Tab6', data: 6 },
     ]
   }
+  componentWillMount() {
+    this.setState({
+      routes: [
+        { key: 'tab1', title: 'Tab1', data: 1 },
+        { key: 'tab2', title: 'Tab2', data: 2 },
+        { key: 'tab3', title: 'Tab3', data: 3 },
+        { key: 'tab4', title: 'Tab4', data: 4 },
+        { key: 'tab5', title: 'Tab5', data: 5 },
+        { key: 'tab6', title: 'Tab6', data: 6 },
+      ]
+    })
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.loadData()
+    }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  loadData() {S
+      this.setState({
+        routes: [
+          { key: 'tab1', title: 'Tab1', data: 8 },
+          { key: 'tab2', title: 'Tab2', data: 9 },
+          { key: 'tab3', title: 'Tab3', data: 13 },
+          { key: 'tab4', title: 'Tab4', data: 14 },
+          { key: 'tab5', title: 'Tab5', data: 15 },
+          { key: 'tab6', title: 'Tab6', data: 16 },
+        ]
+      })
+  }
+
 
   _handleIndexChange = index => this.setState({ index });
 
