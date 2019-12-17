@@ -33,7 +33,7 @@ export default class HomeScreen extends React.Component {
   }
 
   state = {
-    index: 1,
+    index: 0,
     routes: [
     ]
   }
@@ -60,8 +60,9 @@ export default class HomeScreen extends React.Component {
     clearInterval(this.interval);
   }
 
-  loadData() {S
+  loadData() {
       this.setState({
+        index: this.state.index + 1,
         routes: [
           { key: 'tab1', title: 'Tab1', data: 8 },
           { key: 'tab2', title: 'Tab2', data: 9 },
