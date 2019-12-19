@@ -9,6 +9,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import DrawerScreen from './DrawerScreen';
+import DetailsMatchScreen from '../screens/DetailsMatchScreen'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -18,6 +19,7 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
+    MatchDetails: DetailsMatchScreen,
   },
   config
 );
@@ -96,7 +98,7 @@ const StackNavigator = createStackNavigator({
   DrawerNavigator: {
     screen: DrawerNavigator,
     navigationOptions: ({ navigation }) => ({
-      header:null,
+      header: null,
       title: 'ReactNavigation Menu',  // Title to appear in status bar
       headerLeft:
         <TouchableOpacity onPress={() => { navigation.dispatch(DrawerActions.toggleDrawer()) }}>

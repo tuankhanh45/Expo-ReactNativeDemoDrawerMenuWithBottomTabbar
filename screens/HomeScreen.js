@@ -81,7 +81,7 @@ export default class HomeScreen extends React.Component {
             <Text
               style={{
                 textAlign: "center",
-                color: focused ? "red" : "#000"
+                color: focused ? "#f60" : "#fff"
               }}>
               {route.title}</Text>
           </View>
@@ -94,7 +94,7 @@ export default class HomeScreen extends React.Component {
   _renderTabBar = props =>
     <TabBar {...props}
       scrollEnabled
-      indicatorStyle={{ backgroundColor: 'red' }}
+      indicatorStyle={{ backgroundColor: 'transparent' }}
       style={styles.header}
       tabStyle={styles.tabBarTab}
       // labelStyle={
@@ -111,21 +111,29 @@ export default class HomeScreen extends React.Component {
 
   _renderScene = (route) => {
     return (
-      <TabData data={route.route.data} />
+      <TabData navigation={this.props.navigation} />
     )
   }
   render() {
     return (
-      < TabView
-        navigationState={this.state}
-        renderScene={this._renderScene}
-        renderTabBar={this._renderTabBar}
-        onIndexChange={this._handleIndexChange}
-        render
-        lazy={true}
-        scrollEnabled={true}
-        bounces={true}
-      />
+      <View style={{ flex: 1 }}>
+        <TabView
+          style={{ height: 300 }}
+          navigationState={this.state}
+          renderScene={this._renderScene}
+          renderTabBar={this._renderTabBar}
+          onIndexChange={this._handleIndexChange}
+          render
+          lazy={true}
+          scrollEnabled={true}
+          bounces={true}
+        />
+
+        <View>
+          <Text>hello</Text>
+        </View>
+      </View>
+
     );
 
   }
@@ -140,7 +148,7 @@ const styles = StyleSheet.create({
   header: {
     borderTopColor: 'gray',
     borderTopWidth: 0.5,
-    backgroundColor: 'green',
+    backgroundColor: '#333',
     alignItems: 'center',
     justifyContent: 'center',
 
